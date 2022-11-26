@@ -181,7 +181,6 @@ public class RadioTest {
     }
 
 
-
     @Test
     public void testVolumeNextBorder() {
         Radio radio = new Radio();
@@ -261,4 +260,65 @@ public class RadioTest {
         int actual = radio.getCurrentVolume();
         Assertions.assertEquals(expected, actual);
     }
+
+    @Test
+    public void costructWorkTestStationAndVolume() {
+        Radio radio = new Radio(20, 100);
+        radio.setCurrentStation(15);
+        radio.setCurrentVolume(59);
+        int expectedVolume = 59;
+        int actualVolume = radio.getCurrentVolume();
+        int expectedStations = 15;
+        int actualStations = radio.getCurrentStation();
+        Assertions.assertEquals(expectedStations, actualStations);
+        Assertions.assertEquals(expectedVolume, actualVolume);
+    }
+
+    @Test
+    public void costructTestStationNext() {
+        Radio radio = new Radio(20, 100);
+        radio.setCurrentStation(19);
+        radio.setCurrentVolume(100);
+        radio.next();
+        radio.increaseVolume();
+        int expectedVolume = 100;
+        int actualVolume = radio.getCurrentVolume();
+        int expectedStations = 0;
+        int actualStations = radio.getCurrentStation();
+        Assertions.assertEquals(expectedStations, actualStations);
+        Assertions.assertEquals(expectedVolume, actualVolume);
+    }
+
+    @Test
+    public void costructTestStationPrev() {
+        Radio radio = new Radio(20, 100);
+        radio.setCurrentStation(0);
+        radio.setCurrentVolume(0);
+        radio.prev();
+        radio.reduceVolume();
+        int expectedVolume = 0;
+        int actualVolume = radio.getCurrentVolume();
+        int expectedStations = 19;
+        int actualStations = radio.getCurrentStation();
+        Assertions.assertEquals(expectedStations, actualStations);
+        Assertions.assertEquals(expectedVolume, actualVolume);
+    }
+
+
+    @Test
+    public void costructNoWorkTestStationAndVolume() {
+        Radio radio = new Radio(20, 100);
+        radio.setCurrentStation(21);
+        radio.setCurrentVolume(101);
+        int expectedStations = 0;
+        int expectedVolume = 0;
+        int actualVolume = radio.getCurrentVolume();
+        int actualStations = radio.getCurrentStation();
+        Assertions.assertEquals(expectedVolume, actualVolume);
+        Assertions.assertEquals(expectedStations, actualStations);
+    }
+
 }
+
+
+
